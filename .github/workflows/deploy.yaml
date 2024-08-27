@@ -17,10 +17,13 @@ jobs:
         with:
           python-version: 3.11 
 
-      - name: Run Linter check
-        uses: github/super-linter@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run linting
+          run: |
+            pip install "tox<4.0"
+            tox -c ci_cd
+      #   uses: github/super-linter@v4
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create virtual environment
         run: |
