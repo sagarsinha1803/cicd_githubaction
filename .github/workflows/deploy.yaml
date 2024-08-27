@@ -23,14 +23,15 @@ jobs:
         env: 
           EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
         run: |
-          echo "EC2_USERNAME=${EC2_USERNAME}" >> env
+          mkdir ../build
+          echo "EC2_USERNAME=${EC2_USERNAME}" >> ../build/env
 
       - name: Copy files to remote server
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
           EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
         run: |
-          scp -r * $EC2_USERNAME@$EC2_HOST:/home/$EC2_USERNAME/ci/
+          scp -r ../build $EC2_USERNAME@$EC2_HOST:/home/$EC2_USERNAME/ci/
 
       - name: Run Bash Script To Delpoy App
         env:
