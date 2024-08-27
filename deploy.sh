@@ -19,8 +19,8 @@ sudo yum install -y python3 python3-pip
 
 # Creating virtual environment
 exho "Setup Venv"
-sudo  /usr/bin/python3 -m /home/ec2-user/app/test_app/venv --venv
-sudo source /home/ec2-user/app/test_app/venv/bin/activate
+sudo /usr/bin/python3 -m venv -- /home/ec2-user/app/test_app/venv
+source /home/ec2-user/app/test_app/venv/bin/activate
 
 # Install application dependencies from requirements.txt
 echo "Install application dependencies from requirements.txt"
