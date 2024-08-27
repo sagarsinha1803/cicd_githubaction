@@ -44,3 +44,23 @@ jobs:
 
       - name: Run tests
         run: python -m pytest [...]
+
+  configure-nginx:
+    runs-on: ubuntu-latest
+      steps:
+        - name: Run Bash Script To Delpoy App
+          env:
+            EC2_HOST: ${{ secrets.EC2_HOST }}
+            EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
+          run: |
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_HOST << 'EOF'
+              echo 'server{
+                listen 80;
+                server_name example.com
+
+                location / {
+                  proxy_pass http://localhost:3001;
+                }
+              }' | sudo tee /etc/nginx/sites-available/default
+              sudo systemctl restart nginx
+            EOF
