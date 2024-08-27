@@ -73,9 +73,13 @@ jobs:
                 proxy_pass http://localhost:3001;
               }
             }' | sudo tee /etc/nginx/sites-available/default
+
+            sudo mkdir -p /etc/nginx/sites-enabled
+            if [ ! -f /etc/nginx/sites-enabled/default ]; then
+              sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled
+            fi
             sudo systemctl restart nginx
           EOF
-            - name: Clean up SSH key
 
       - name: Clean up SSH key
         if: always()
