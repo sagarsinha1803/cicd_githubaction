@@ -30,7 +30,7 @@ jobs:
           EC2_HOST: ${{ secrets.EC2_HOST }}
           EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
         run: |
-          scp -r * $EC2_USERNAME@$EC2_HOST:/home/$EC2_USERNAME/app/test_app
+          scp -r * $EC2_USERNAME@$EC2_HOST:/home/$EC2_USERNAME/app/test_app/
 
       - name: Run Bash Script To Delpoy App
         env:
