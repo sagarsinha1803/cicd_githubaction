@@ -7,6 +7,7 @@ echo "creating app folder"
 sudo mkdir -p /home/ec2-user/app/test_app
 
 echo "moving files to app folder"
+"ls -ll"
 sudo mv /home/ec2-user/build/ /home/ec2-user/app/test_app
 
 # Navigate to the app directory
