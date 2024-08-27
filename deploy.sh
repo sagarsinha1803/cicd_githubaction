@@ -1,16 +1,16 @@
 #!/bin/bash
 
 echo "deleting old app"
-sudo rm -rf /var/www/
+sudo rm -rf /home/ec2-user/app/test_app
 
 echo "creating app folder"
-sudo mkdir -p /var/www/my-app 
+sudo mkdir -p /home/ec2-user/app/test_app
 
 echo "moving files to app folder"
-sudo mv  * /var/www/my-app
+sudo mv  * /home/ec2-user/app/test_app
 
 # Navigate to the app directory
-cd /var/www/my-app/
+cd /home/ec2-user/app/test_app
 sudo mv env .env
 
 sudo yum update
@@ -38,7 +38,7 @@ server {
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/var/www/my-app/myapp.sock;
+        proxy_pass http://unix:/home/ec2-user/app/test_app/myapp.sock;
     }
 }
 EOF'
@@ -57,5 +57,6 @@ sudo rm -rf myapp.sock
 # # Replace 'server:app' with 'yourfile:app' if your Flask instance is named differently.
 # # gunicorn --workers 3 --bind 0.0.0.0:8000 server:app &
 echo "starting gunicorn"
-sudo gunicorn --workers 3 --bind unix:myapp.sock  manage:manage --user www-data --group www-data --daemon
+# sudo gunicorn --workers 3 --bind unix:myapp.sock  manage:app --user www-data --group www-data --daemon
+sudo manage:app --name TEST-FLASK-APP -b 0.0.0.0:8004 --log-file error_logs.log --workers 2 --bind unix:myapp.sock
 echo "started gunicorn 🚀"
