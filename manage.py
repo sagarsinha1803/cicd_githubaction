@@ -1,11 +1,12 @@
 from flask import Flask
+from .service.service import hello_world_fn
 
 app = Flask(__name__)
 app.config['TESTING'] = True
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, World</p>"
+    return hello_world_fn()
 
 def run():
      app.run(host="0.0.0.0", port=8004, debug=True)
