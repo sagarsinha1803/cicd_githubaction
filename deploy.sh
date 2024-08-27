@@ -7,7 +7,7 @@ echo "creating app folder"
 sudo mkdir -p /home/ec2-user/app/test_app
 
 echo "moving files to app folder"
-sudo mv /home/ec2-user/app/build/ /home/ec2-user/app/test_app
+sudo mv /home/ec2-user/build/ /home/ec2-user/app/test_app
 
 # Navigate to the app directory
 cd /home/ec2-user/app/test_app
@@ -18,7 +18,7 @@ echo "installing python and pip"
 sudo yum install -y python3 python3-pip
 
 # Creating virtual environment
-exho "Setup Venv"
+echo "Setup Venv"
 sudo /usr/bin/python3 -m venv -- /home/ec2-user/app/test_app/venv
 "source /home/ec2-user/app/test_app/venv/bin/activate"
 
