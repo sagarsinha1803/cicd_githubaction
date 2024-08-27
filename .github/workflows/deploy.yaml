@@ -1,45 +1,38 @@
-name: Deploy to EC2
+name: Flask CI
 
 on:
   push:
-    branches:
-      - "version_1_branch"
+    branches: [version_1_branch]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout current branch
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up SSH key and whitelist EC2 IP address
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11 
 
-      - name: Create .env file dynamically
-        env: 
-          EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
+      - name: Create virtual environment
         run: |
-          mkdir -p /build
-          echo "EC2_USERNAME=${EC2_USERNAME}" >> /build/env
+          python -m venv venv
+          source venv/bin/activate
 
-      - name: Copy files to remote server
-        env:
-          EC2_HOST: ${{ secrets.EC2_HOST }}
-          EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
+      - name: Install dependencies
         run: |
-          scp -r * $EC2_USERNAME@$EC2_HOST:/home/$EC2_USERNAME/
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
 
-      - name: Run Bash Script To Delpoy App
-        env:
-          EC2_HOST: ${{ secrets.EC2_HOST }}
-          EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
+      - name: Print debugging information
         run: |
-          ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_HOST "chmod +x ./deploy.sh && ./deploy.sh"
+          echo "Python Version: $(python --version)"
+          echo "Working Directory: $(pwd)"
+          echo "Contents of Working Directory: $(ls -l)"
+          echo "Contents of site-packages: $(ls -l venv/lib/python*/site-packages)"
 
-      - name: Clean up SSH key
-        if: always()
-        run: rm -f ~/.ssh/id_rsa
+      - name: Run tests
+        run: python test_hello.py
