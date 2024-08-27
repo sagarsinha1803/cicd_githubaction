@@ -4,10 +4,10 @@ echo "deleting old app"
 sudo rm -rf /home/ec2-user/app/test_app
 
 echo "creating app folder"
-sudo mkdir -p /home/ec2-user/app/test_app
+sudo mkdir -p /home/ec2-user/app/
 
 echo "moving files to app folder"
-sudo mv  * /home/ec2-user/app/test_app
+sudo mv  * /home/ec2-user/app/
 
 # Navigate to the app directory
 cd /home/ec2-user/app/test_app
