@@ -4,7 +4,7 @@ app = Flask(__name__)
 app.config['TESTING'] = True
 
 @app.route("/")
-def helloworld():
+def hello_world():
     return "<p>Hello, !</p>"
 
 def run():
