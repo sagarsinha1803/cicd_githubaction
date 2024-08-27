@@ -20,7 +20,7 @@ jobs:
       - name: Run linting
         run: |
           python -m pip install "tox<4.0"
-          tox -c ci_cd
+          python -m tox -c ci_cd
       #   uses: github/super-linter@v4
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
