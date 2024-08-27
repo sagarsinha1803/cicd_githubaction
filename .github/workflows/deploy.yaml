@@ -76,7 +76,7 @@ jobs:
 
             sudo mkdir -p /etc/nginx/sites-enabled
             if [ ! -f /etc/nginx/sites-enabled/default ]; then
-              sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled
+              sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
             fi
             sudo systemctl restart nginx
           EOF
