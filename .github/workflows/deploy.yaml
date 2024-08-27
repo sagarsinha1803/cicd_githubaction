@@ -23,8 +23,8 @@ jobs:
         env: 
           EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
         run: |
-          mkdir ../build
-          echo "EC2_USERNAME=${EC2_USERNAME}" >> ../build/env
+          mkdir /build
+          echo "EC2_USERNAME=${EC2_USERNAME}" >> /build/env
 
       - name: Copy files to remote server
         env:
