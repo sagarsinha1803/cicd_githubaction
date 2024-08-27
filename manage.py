@@ -5,7 +5,7 @@ app.config['TESTING'] = True
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, !</p>"
+    return "<p>Hello, World</p>"
 
 def run():
      app.run(host="0.0.0.0", port=8004, debug=True)
