@@ -47,7 +47,11 @@ jobs:
 
   configure-nginx:
     runs-on: ubuntu-latest
+    needs: build
     steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v2
+
       - name: Run Bash Script To Delpoy App
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
