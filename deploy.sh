@@ -13,9 +13,9 @@ sudo mv  * /var/www/my-app
 cd /var/www/my-app/
 sudo mv env .env
 
-sudo apt-get update
+sudo yum update
 echo "installing python and pip"
-sudo apt-get install -y python3 python3-pip
+sudo yum install -y python3 python3-pip
 
 # Install application dependencies from requirements.txt
 echo "Install application dependencies from requirements.txt"
@@ -24,8 +24,8 @@ sudo pip install -r requirements.txt
 # Update and install Nginx if not already installed
 if ! command -v nginx > /dev/null; then
     echo "Installing Nginx"
-    sudo apt-get update
-    sudo apt-get install -y nginx
+    sudo yum update
+    sudo yum install -y nginx
 fi
 
 # Configure Nginx to act as a reverse proxy if not already configured
